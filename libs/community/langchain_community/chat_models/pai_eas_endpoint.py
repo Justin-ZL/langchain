@@ -208,7 +208,8 @@ class PaiEasChatEndpoint(BaseChatModel):
 
         return generated_text
 
-    def _call_eas(self, query_body: dict) -> Any:
+
+    def _call_eas(self, query_body: dict) -> bytes:
         """Generate text from the eas service."""
         headers = {
             "Content-Type": "application/json",
@@ -227,7 +228,7 @@ class PaiEasChatEndpoint(BaseChatModel):
                 f" and message {response.text}"
             )
 
-        return response.text
+        return response.content  # Changed from response.text to response.content to return bytes
 
     def _call_eas_stream(self, query_body: dict) -> Any:
         """Generate text from the eas service."""
